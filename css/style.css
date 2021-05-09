@@ -93,6 +93,10 @@ body .main .input-cities label {
   color: #fff;
 }
 
+a.button:disabled {
+  opacity: 0.5;
+}
+
 .button {
   width: 100%;
   max-width: 290px;
@@ -114,6 +118,8 @@ body .main .input-cities label {
   transition: all .5s ease;
 }
 
+
+
 .dropdown {
   width: 100%;
   background: #fff;
@@ -133,10 +139,12 @@ body .main .input-cities label {
 }
 
 .dropdown-lists__list--select {
+  background-color: #ccfafa;
   display: none;
 }
 
 .dropdown-lists__list--autocomplete {
+  background-color: #b0fad7;
   display: none;
 }
 
@@ -166,6 +174,11 @@ body .main .input-cities label {
 
 .dropdown-lists__countryBlock {
   margin: 10px 0;
+}
+
+.dropdown-lists__nomatchesBlock {
+  margin: 10px 5px;
+  display: none;
 }
 
 #select-cities ~ .focus-border:before,
