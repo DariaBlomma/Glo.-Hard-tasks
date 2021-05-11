@@ -24,9 +24,13 @@ const checkCookie = () => document.cookie.includes('lang');
 const askLanguage = () => {
     let lang;
     do {
+        lang = prompt('RU, EN or DE?');
+    } while (lang === null);
+
+    lang = lang.trim().toUpperCase();
+    while (lang !== 'RU' && lang !== 'EN' && lang !== 'DE') {
         lang = prompt('RU, EN or DE?').trim().toUpperCase();
-        console.log('lang: ', lang);
-    } while (lang !== 'RU' && lang !== 'EN' && lang !== 'DE');
+    }
 
     setCookie('lang', lang, 2023, 12, 30);
     console.log('cookie: ', decodeURI(document.cookie));
@@ -176,6 +180,7 @@ const hideSelect = () => {
     }
 };
 
+let data;
 const workJson = lang => {
     statusMessage.className = 'loader';
     fetch('./db_cities.json')
@@ -188,28 +193,34 @@ const workJson = lang => {
     })
     .then(data => {
         localStorage.setItem('dataObj', JSON.stringify(data[lang]));
+        return data;
+    })
+    .then(dataLc => {
+        data = JSON.parse(localStorage.getItem('dataObj'));
     })
     .catch(error => console.log(error));
 };
 
 const getMainCountry = lang => {
+    console.log('lang: ', lang);
     if (lang === 'RU') {
         return 'Россия';
-    } else if (lang === 'EN') {
-        return 'England';
-    } else {
+    }
+    if (lang === 'EN') {
+        return 'United Kingdom';
+    } 
+    if (lang === 'DE') {
         return 'Deutschland';
     }
 };
 
 
-const showDefault = () => {
-    const country = getMainCountry();
+const showDefault = (data, country) => {
     data.forEach((item, index) => {
         if (item.country === country) {
             if (index !== 0) {
-                const temp1 = data[index - 1];
-                data[index - 1] = data[index];
+                const temp1 = data[0];
+                data[0] = data[index];
                 data[index] = temp1;
             }
         }
@@ -282,16 +293,14 @@ const reset = () => {
 };
 // const lang = document.cookie.slice(-2);
 // setCookie('lang', lang, 1993, 12, 30);
+// localStorage.removeItem('dataObj');
 const check = checkCookie();
-
-let data;
-if (check) {
-    console.log('have cookie');
+const start = () => {
     const lang = document.cookie.slice(-2);
     workJson(lang);
-    data = JSON.parse(localStorage.getItem('dataObj'));
     renderNoMatches(lang);
-    getMainCountry(lang);
+    const country = getMainCountry(lang);
+
     document.addEventListener('click', event => {
         // показали отсортированный дефолтный список
         const target = event.target;
@@ -321,7 +330,7 @@ if (check) {
     // при клике внутри инпута показываем отсортированный дефолтный список
         if (target === selectCities) {
             listDefault.style.display = 'block';
-            showDefault();
+            showDefault(data, country);
         }
         // при клике на страну показываем все города
         const closestDefaultLine = target.closest('.dropdown-lists__list--default .dropdown-lists__total-line');
@@ -358,7 +367,13 @@ if (check) {
             button.style.opacity = '0.5';
         }
     })
+};
+// let data;
+if (check) {
+    console.log('have cookie');
+    start();
 } else {
     askLanguage();
+    start();
 }
 
