@@ -1,9 +1,9 @@
 'use strict';
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const color = document.getElementById('color');
-const range = document.getElementById('range');
-const rangeText = document.querySelector('.range-text');
+// const color = document.getElementById('color');
+// const range = document.getElementById('range');
+// const rangeText = document.querySelector('.range-text');
 // const gradient = ctx.createLinearGradient(20, 20, 120, 120);
 // const gradient = ctx.createRadialGradient(70, 70, 0, 70, 70, 70);
 // gradient.addColorStop(0, 'hsl(250, 70%, 70%)');
@@ -82,23 +82,106 @@ const angle = (degrees = 360) => (Math.PI / 180) * degrees;
 
 // animation();
 
-color.addEventListener('input', () => ctx.strokeStyle = color.value);
-range.addEventListener('change', () => {
-    ctx.lineWidth = range.value;
-    rangeText.textContent = range.value;
-});
 
-canvas.addEventListener('mousemove', event => {
-    const x = event.offsetX;
-    const y = event.offsetY;
-    const mx = event.movementX,
-        my = event.movementY;
-    if (event.buttons > 0) {
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x - mx, y - my);
-        ctx.stroke();
-        ctx.closePath();
-    }
+// paint
+// color.addEventListener('input', () => ctx.strokeStyle = color.value);
+// range.addEventListener('change', () => {
+//     ctx.lineWidth = range.value;
+//     rangeText.textContent = range.value;
+// });
 
-});
+// canvas.addEventListener('mousemove', event => {
+//     const x = event.offsetX;
+//     const y = event.offsetY;
+//     const mx = event.movementX,
+//         my = event.movementY;
+//     if (event.buttons > 0) {
+//         ctx.beginPath();
+//         ctx.moveTo(x, y);
+//         ctx.lineTo(x - mx, y - my);
+//         ctx.stroke();
+//         ctx.closePath();
+//     }
+
+// });
+
+// olympic circles
+ctx.beginPath();
+
+ctx.lineWidth = '8';
+ctx.strokeStyle = 'blue';
+ctx.moveTo(90, 50); 
+ctx.arc(50, 50, 40, 0, angle(), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'black';
+ctx.moveTo(180, 50); 
+ctx.arc(140, 50, 40, 0, angle(), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'red';
+ctx.moveTo(270, 50); 
+ctx.arc(230, 50, 40, 0, angle(), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'orange';
+ctx.moveTo(120, 90); 
+ctx.arc(90, 90, 40, 0, angle(), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'blue';
+ctx.moveTo(90, 50); 
+ctx.arc(50, 50, 40, 0, angle(20), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'blue';
+ctx.moveTo(90, 50); 
+ctx.arc(50, 50, 40, 0, angle(120), true);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'black';
+ctx.moveTo(180, 50); 
+ctx.arc(140, 50, 40, 0, angle(170), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'green';
+ctx.moveTo(225, 90); 
+ctx.arc(185, 90, 40, 0, angle(), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'black';
+ctx.moveTo(180, 50); 
+ctx.arc(140, 50, 40, 0, angle(30), false);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.strokeStyle = 'black';
+ctx.moveTo(180, 50); 
+ctx.arc(140, 50, 40, 0, angle(190), true);
+ctx.stroke();
+ctx.closePath();
+
+
+ctx.beginPath();
+ctx.strokeStyle = 'red';
+ctx.moveTo(270, 50); 
+ctx.arc(230, 50, 40, 0, angle(150), false);
+ctx.stroke();
+ctx.closePath();
