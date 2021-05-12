@@ -2,6 +2,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const color = document.getElementById('color');
+const range = document.getElementById('range');
+const rangeText = document.querySelector('.range-text');
 // const gradient = ctx.createLinearGradient(20, 20, 120, 120);
 // const gradient = ctx.createRadialGradient(70, 70, 0, 70, 70, 70);
 // gradient.addColorStop(0, 'hsl(250, 70%, 70%)');
@@ -81,6 +83,10 @@ const angle = (degrees = 360) => (Math.PI / 180) * degrees;
 // animation();
 
 color.addEventListener('input', () => ctx.strokeStyle = color.value);
+range.addEventListener('change', () => {
+    ctx.lineWidth = range.value;
+    rangeText.textContent = range.value;
+});
 
 canvas.addEventListener('mousemove', event => {
     const x = event.offsetX;
